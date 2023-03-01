@@ -23,7 +23,7 @@ contract EnforcedRoyalty {
     }
 
     function _handleRoyaltyPayment(uint256 cost, address from) internal {
-        
+
         _setRoyaltyPaid(true);
 
         uint256 royaltyPayment = 0;
@@ -41,6 +41,18 @@ contract EnforcedRoyalty {
 
         (bool sellerSuccess, ) = payable(from).call{value: cost - royaltyPayment}("");
         require(sellerSuccess);
+    }
+
+    function _checkRoyalty(address from) internal {
+
+        bool wasRoyaltyPaid = isRoyaltyPaid();
+
+        if(wasRoyaltyPaid) _setRoyaltyPaid(false);
+
+        if(from == msg.sender || from == address(0))
+            return;
+        
+        require(wasRoyaltyPaid, "Royalty payment not recieved for transfer");
     }
 
     function _changeRoyaltyData(uint256 percent, address to) internal {
