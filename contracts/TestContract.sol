@@ -12,15 +12,10 @@ contract TestContract is Ownable, ERC721, EnforcedRoyalty {
 
     uint256 totalMinted = 0;
 
-    constructor() ERC721("NFT Name", "SYMBOL") EnforcedRoyalty(550, address(0)) {}
+    constructor() ERC721("NAME", "SYMBOL") EnforcedRoyalty(550, address(0)) {}
 
-    function mint(uint256 amount) external payable {
-        uint256 id = totalMinted + 1;
-
-        for(uint i = 0; i < amount; i++)
-            _safeMint(msg.sender, id++);
-
-        totalMinted = id;
+    function mint() external payable {
+            _mint(msg.sender, 1);
     }
 
     function tokenURI(uint256 tokenId)
