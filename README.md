@@ -1,4 +1,4 @@
-_**Note**: This is for discussion purposes only and has not been thoroughly tested. This method does not currently support erc20 (WETH)_
+_**Note**: This is for discussion purposes only and has not been tested. This method does not currently support erc20 (WETH)_
 
 ## HOW IT WORKS 
 
