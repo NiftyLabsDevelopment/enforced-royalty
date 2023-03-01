@@ -12,15 +12,17 @@ contract TestContract is Ownable, ERC721, EnforcedRoyalty {
 
     constructor(
         uint256 royaltyPercentage,
-        address royaltyAddress
+        address royaltyAddress,
+        address paymentToken
     )
         ERC721("NAME", "SYMBOL")
-        EnforcedRoyalty(royaltyPercentage, royaltyAddress) {}
+        EnforcedRoyalty(royaltyPercentage, royaltyAddress, paymentToken) {}
 
     function mint(uint256 amount) external payable {
         uint256 id = totalMinted + 1;
 
-        for (uint i = 0; i < amount; i++) _safeMint(msg.sender, id++);
+        for(uint i = 0; i < amount; i++)
+            _safeMint(msg.sender, id++);
 
         totalMinted = id;
     }
@@ -42,13 +44,25 @@ contract TestContract is Ownable, ERC721, EnforcedRoyalty {
         super._beforeTokenTransfer(from, to, tokenId, batchSize);
     }
 
-    function marketplaceTransferNFT(
+    function marketplaceTransferNFTWithETH(
         address from,
         address to,
         uint256 tokenId
     ) public payable {
-        _handleRoyaltyPayment(msg.value, from);
+        _handleRoyaltyPaymentWithEth(msg.value, from);
 
         super.transferFrom(from, to, tokenId);
     }
+
+    function marketplaceTransferNFTWithWETH(
+        address from,
+        address to,
+        uint256 tokenId,
+        uint256 cost
+    ) public payable {
+        _handleRoyaltyPaymentWithWETH(cost, from);
+
+        super.transferFrom(from, to, tokenId);
+    }
+
 }
