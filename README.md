@@ -1,4 +1,4 @@
-_**Note**: This code is for discussion purposes only and has not been tested thoroughly. This method also does not currently support erc20 transfers (WETH)
+_**Note**: This is for discussion purposes only and has not been thoroughly tested. This method does not currently support erc20 (WETH)
 
 ## HOW IT WORKS 
 
