@@ -29,13 +29,20 @@ contract EnforcedRoyalty {
     }
 
     function _handleRoyaltyPayment(uint256 cost, address from) internal payRoyalty {
-        uint256 royaltyPayment = (cost * royaltyPercent) / BASIS_POINTS;
-        uint256 remainder = cost - royaltyPayment;
+        uint256 royaltyPayment = 0;
 
-        (bool royaltySuccess, ) = payable(royaltyPayout).call{value: royaltyPayment}("");
-        require(royaltySuccess);
+        if(cost == 0) return;
 
-        (bool sellerSuccess, ) = payable(from).call{value: remainder}("");
+        if(royaltyPercent > 0)
+            royaltyPayment = (cost * royaltyPercent) / BASIS_POINTS;
+
+
+        if(royaltyPayment > 0) {
+            (bool royaltySuccess, ) = payable(royaltyPayout).call{value: royaltyPayment}("");
+            require(royaltySuccess);
+        }
+
+        (bool sellerSuccess, ) = payable(from).call{value: cost - royaltyPayment}("");
         require(sellerSuccess);
     }
 
