@@ -40,15 +40,15 @@ contract TestContract is Ownable, ERC721, EnforcedRoyalty {
         uint256 batchSize
     ) internal override {
 
+        bool royaltyPaid = isRoyaltyPaid();
+
+        if(royaltyPaid) _setRoyaltyPaid(false);
+
         if(from == msg.sender || from == address(0)) {
             super._beforeTokenTransfer(from, to, tokenId, batchSize);
             return;
         }
-
-        bool royaltyPaid = isRoyaltyPaid();
-        if(royaltyPaid) _setRoyaltyPaid(false);
-
-
+        
         require(royaltyPaid, "Royalty payment not recieved for transfer");
     
         super._beforeTokenTransfer(from, to, tokenId, batchSize);
