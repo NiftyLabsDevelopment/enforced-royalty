@@ -7,7 +7,6 @@ import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "./EnforcedRoyalty.sol";
 
-
 contract TestContract is Ownable, ERC721, EnforcedRoyalty {
 
     constructor(uint256 royaltyPercentage, address royaltyAddress) ERC721("NAME", "SYMBOL") EnforcedRoyalty(royaltyPercentage, royaltyAddress) {}
