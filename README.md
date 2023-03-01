@@ -1,13 +1,10 @@
-# Sample Hardhat Project
+_**Note**: This code is for discussion purposes only and has not been tested thoroughly._
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
+## HOW IT WORKS 
 
-Try running some of the following tasks:
+Force the NFT operator (marketplace contract) to instead call marketplaceTransferNFT and to include a msg.value of the royalty fee + sellers fee.
 
-```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat run scripts/deploy.ts
-```
+The NFT contract will then pay the seller and take the royalty fee.
+
+By overriding _beforeTokenTransfer if the operator is a marketplace we can check if that royalty has been paid and fails if not.
+
