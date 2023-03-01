@@ -10,8 +10,6 @@ import "./EnforcedRoyalty.sol";
 
 contract TestContract is Ownable, ERC721, EnforcedRoyalty {
 
-    uint256 totalMinted = 0;
-
     constructor() ERC721("NAME", "SYMBOL") EnforcedRoyalty(550, address(0)) {}
 
     function mint() external payable {
