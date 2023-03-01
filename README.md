@@ -8,3 +8,4 @@ The NFT contract will then pay the seller and take the royalty fee.
 
 By overriding _beforeTokenTransfer if the operator is a marketplace we can check if that royalty has been paid and fails if not.
 
+Transfers that are operated from the owner of the token can be transfered via standard calls (i.e. safe transfer)
