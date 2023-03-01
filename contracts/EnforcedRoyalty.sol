@@ -10,7 +10,7 @@ contract EnforcedRoyalty {
 
     uint256 royaltyPaid = 1;
 
-    //Do we cap royalty percentage.
+    //do we cap royalty percentage?
     constructor(uint256 percentage, address payoutAddress) {
         require(percentage <= BASIS_POINTS, "Royalty percentage can't be more than 100%");
 

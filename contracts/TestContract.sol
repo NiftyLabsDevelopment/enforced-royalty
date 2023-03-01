@@ -7,12 +7,11 @@ import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "./EnforcedRoyalty.sol";
 
-
 contract TestContract is Ownable, ERC721, EnforcedRoyalty {
 
     uint256 totalMinted = 0;
 
-    constructor() ERC721("NFT Name", "SYMBOL") EnforcedRoyalty(550, address(0)) {}
+    constructor(uint256 royaltyPercentage, address royaltyAddress) ERC721("NAME", "SYMBOL") EnforcedRoyalty(royaltyPercentage, royaltyAddress) {}
 
     function mint(uint256 amount) external payable {
         uint256 id = totalMinted + 1;

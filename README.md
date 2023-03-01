@@ -1,13 +1,11 @@
-# Sample Hardhat Project
+_**Note**: This is for discussion purposes only and has not been tested. This method does not currently support erc20 (WETH)_
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
+## HOW IT WORKS 
 
-Try running some of the following tasks:
+Force the Operator (Marketplace Contract) to instead call marketplaceTransferNFT and to include a msg.value of a royalty & sellers fee.
 
-```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat run scripts/deploy.ts
-```
+The NFT contract will then pay the seller and take the royalty fee.
+
+By overriding _beforeTokenTransfer if the operator is a marketplace we can check if that royalty has been paid and fails if not.
+
+Transfers that are operated from the owner of the token can be transfered via standard calls (i.e. safe transfer)
