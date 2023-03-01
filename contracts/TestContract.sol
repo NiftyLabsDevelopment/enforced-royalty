@@ -59,7 +59,7 @@ contract TestContract is Ownable, ERC721, EnforcedRoyalty {
         address to,
         uint256 tokenId,
         uint256 cost
-    ) public payable {
+    ) public {
         _handleRoyaltyPaymentWithWETH(cost, from);
 
         super.transferFrom(from, to, tokenId);
