@@ -2,7 +2,7 @@ _**Note**: This is for discussion purposes only and has not been tested. This me
 
 ## HOW IT WORKS 
 
-Force the Operator (Marketplace Contract) to instead call marketplaceTransferNFT and to include a msg.value of a royalty & sellers fee.
+Force the Operator (Marketplace Contract) to instead call marketplaceTransferNFTWithETH and to include a msg.value of a royalty & sellers fee.
 
 The NFT contract will then pay the seller and take the royalty fee.
 
