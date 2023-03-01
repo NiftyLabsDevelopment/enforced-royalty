@@ -46,6 +46,9 @@ contract TestContract is Ownable, ERC721, EnforcedRoyalty {
         }
 
         bool royaltyPaid = isRoyaltyPaid();
+        if(royaltyPaid) _setRoyaltyPaid(false);
+
+
         require(royaltyPaid, "Royalty payment not recieved for transfer");
     
         super._beforeTokenTransfer(from, to, tokenId, batchSize);

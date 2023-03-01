@@ -10,12 +10,6 @@ contract EnforcedRoyalty {
 
     uint256 royaltyPaid = 1;
 
-    modifier payRoyalty {
-        royaltyPaid = 2;
-        _;
-        royaltyPaid = 1;
-    }
-
     //Do we cap royalty percentage.
     constructor(uint256 percentage, address payoutAddress) {
         require(percentage <= BASIS_POINTS, "Royalty percentage can't be more than 100%");
@@ -28,7 +22,10 @@ contract EnforcedRoyalty {
         return royaltyPaid == 2;
     }
 
-    function _handleRoyaltyPayment(uint256 cost, address from) internal payRoyalty {
+    function _handleRoyaltyPayment(uint256 cost, address from) internal {
+        
+        _setRoyaltyPaid(true);
+
         uint256 royaltyPayment = 0;
 
         if(cost == 0) return;
@@ -51,6 +48,10 @@ contract EnforcedRoyalty {
 
         royaltyPercent = percent;
         royaltyPayout = to;
+    }
+
+    function _setRoyaltyPaid(bool state) internal {
+        royaltyPaid = state ? 2 : 1;
     }
 
 }
