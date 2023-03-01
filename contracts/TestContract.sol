@@ -8,27 +8,26 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "./EnforcedRoyalty.sol";
 
 contract TestContract is Ownable, ERC721, EnforcedRoyalty {
-
     uint256 totalMinted = 0;
 
-    constructor(uint256 royaltyPercentage, address royaltyAddress) ERC721("NAME", "SYMBOL") EnforcedRoyalty(royaltyPercentage, royaltyAddress) {}
+    constructor(
+        uint256 royaltyPercentage,
+        address royaltyAddress
+    )
+        ERC721("NAME", "SYMBOL")
+        EnforcedRoyalty(royaltyPercentage, royaltyAddress) {}
 
     function mint(uint256 amount) external payable {
         uint256 id = totalMinted + 1;
 
-        for(uint i = 0; i < amount; i++)
-            _safeMint(msg.sender, id++);
+        for (uint i = 0; i < amount; i++) _safeMint(msg.sender, id++);
 
         totalMinted = id;
     }
 
-    function tokenURI(uint256 tokenId)
-        public
-        view
-        virtual
-        override
-        returns (string memory)
-    {
+    function tokenURI(
+        uint256 tokenId
+    ) public view virtual override returns (string memory) {
         return Strings.toString(tokenId);
     }
 
@@ -38,9 +37,8 @@ contract TestContract is Ownable, ERC721, EnforcedRoyalty {
         uint256 tokenId,
         uint256 batchSize
     ) internal override {
-
         _checkRoyalty(from);
-    
+
         super._beforeTokenTransfer(from, to, tokenId, batchSize);
     }
 
@@ -49,10 +47,8 @@ contract TestContract is Ownable, ERC721, EnforcedRoyalty {
         address to,
         uint256 tokenId
     ) public payable {
-        
         _handleRoyaltyPayment(msg.value, from);
 
         super.transferFrom(from, to, tokenId);
     }
-
 }
