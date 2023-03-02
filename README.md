@@ -4,7 +4,7 @@ _**Note**: This is for discussion purposes only and has not been throughly teste
 
 Force the Operator (Marketplace Contract) to instead call marketplaceTransferNFTWithETH and to include a msg.value of a royalty & sellers fee.
 
-For WETH/Bids, marketplaceTransferNFTWithWETH is called and includes a cost amount. _This method has not be tested._
+For WETH/Bids, marketplaceTransferNFTWithWETH is called and includes a cost amount. **WETH must be sent to the contract prior to calling this function in the same transaction** _This method has not be tested._
 
 The NFT contract will then pay the seller and take the royalty fee.
 
