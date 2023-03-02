@@ -1,8 +1,10 @@
-_**Note**: This is for discussion purposes only and has not been tested. This method does not currently support erc20 (WETH)_
+_**Note**: This is for discussion purposes only and has not been throughly tested._
 
 ## HOW IT WORKS 
 
 Force the Operator (Marketplace Contract) to instead call marketplaceTransferNFTWithETH and to include a msg.value of a royalty & sellers fee.
+
+For WETH/Bids, marketplaceTransferNFTWithWETH is called and includes a cost amount. _This method has not be tested._
 
 The NFT contract will then pay the seller and take the royalty fee.
 
